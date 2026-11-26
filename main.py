@@ -15,12 +15,21 @@ HOROSCOPE = (
 )
 
 
+def write_horoscope(path: str, text: str) -> None:
+    """Self-check then write the horoscope with no trailing newline."""
+    if not text:
+        raise ValueError("horoscope text must not be empty")
+    if len(text) > 200:
+        raise ValueError(f"horoscope text is {len(text)} chars, over the 200-char limit")
+    with open(path, "w", encoding="utf-8", newline="") as f:
+        f.write(text)
+
+
 def main() -> None:
     output_dir = "/output"
     os.makedirs(output_dir, exist_ok=True)
     path = os.path.join(output_dir, "entry.txt")
-    with open(path, "w", encoding="utf-8", newline="") as f:
-        f.write(HOROSCOPE)
+    write_horoscope(path, HOROSCOPE)
 
 
 if __name__ == "__main__":
